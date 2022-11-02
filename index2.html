@@ -15,14 +15,18 @@
     const root = document.getElementById("root");
 
     function App() {
-      const [minute, setMinute] = React.useState(0);
+      const [amount, setAmount] = React.useState(0);
+      const [fliped, setFliped] = React.useState(false);
 
       const onChange = (event) => {
-        setMinute(event.target.value);
+        setAmount(event.target.value);
       };
 
-      const onClick = () => {
-        setMinute(0);
+      const reset = () => setAmount(0);
+
+      const flip = () => {
+        reset();
+        setFliped((current) => !current);
       };
 
       return (
@@ -32,26 +36,32 @@
           <div>
             <label htmlFor="minute">Minute</label>
             <input
-              value={minute}
+              value={fliped ? amount * 60 : amount}
               id="minute"
               placeholder="Minute"
               type="number"
               onChange={onChange}
+              disabled={fliped}
             />
           </div>
 
           <div>
             <label htmlFor="hour">Hour</label>
             <input
-              value={Math.round(minute / 60)}
+              value={fliped ? amount : Math.round(amount / 60)}
               id="hour"
               placeholder="Hour"
               type="number"
+              disabled={!fliped}
+              onChange={onChange}
             />
           </div>
 
-          <button id="reset" onClick={onClick}>
+          <button id="reset" onClick={reset}>
             Reset
+          </button>
+          <button id="flip" onClick={flip}>
+            Flip
           </button>
         </div>
       );
