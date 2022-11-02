@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <!-- react js를 사용하기 위한 설치 -->
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <!-- react를 사용하여 body안에 html태그를 자동 적용하기 위한 라이브러리 설치 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- JS -> JSX 코드변환기 Babel 설치 추가  -->
+
+  <script type="text/babel">
+    const root = document.getElementById("root");
+
+    function App() {
+      const [minute, setMinute] = React.useState(0);
+
+      const onChange = (event) => {
+        setMinute(event.target.value);
+      };
+
+      const onClick = () => {
+        setMinute(0);
+      };
+
+      return (
+        <div>
+          <h1 className="hi">Super Converter</h1>
+
+          <div>
+            <label htmlFor="minute">Minute</label>
+            <input
+              value={minute}
+              id="minute"
+              placeholder="Minute"
+              type="number"
+              onChange={onChange}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="hour">Hour</label>
+            <input
+              value={Math.round(minute / 60)}
+              id="hour"
+              placeholder="Hour"
+              type="number"
+            />
+          </div>
+
+          <button id="reset" onClick={onClick}>
+            Reset
+          </button>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>

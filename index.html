@@ -15,10 +15,11 @@
     const root = document.getElementById("root");
 
     function App() {
-      const [counter, reRender] = React.useState(0); // const [저장데이터, 리랜더링시키는 함수] = React.useState(초기값 설정, 0부터 시작);
+      const [counter, setCounter] = React.useState(0); // const [저장데이터, 리랜더링시키는 함수] = React.useState(초기값 설정, 0부터 시작);
 
       const counterUp = () => {
-        reRender(counter + 1);
+        // setCounter(counter+1)
+        setCounter((current) => current + 1);
       };
 
       return (
