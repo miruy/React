@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <!-- react js를 사용하기 위한 설치 -->
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <!-- react를 사용하여 body안에 html태그를 자동 적용하기 위한 라이브러리 설치 -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- JS -> JSX 코드변환기 Babel 설치 추가  -->
+
+  <script type="text/babel">
+    function Btn({ text, onClick }) {
+      console.log(text);
+      return (
+        /* 
+        3. Btn 함수에 정의된 <button>태그의 속성을 기억하는 MemorizeBtn의 역할로 인해 
+        이벤트 실행 후 re-render 시 onClick이 없는 두번째 <MemorizeBtn /> 는 실행되지 않음
+        */
+        <button
+          onClick={onClick}
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+          }}
+        >
+          {text}
+        </button>
+      );
+    }
+
+    // 1. 기본 Btn 함수의 속성을 기억하는 MemorizeBtn(기억버튼)함수 생성
+    const MemorizeBtn = React.memo(Btn);
+
+    function App() {
+      const [value, setValue] = React.useState("Save");
+
+      const changeValue = () => {
+        setValue("Revert");
+      };
+
+      // 2. MemorizeBtn(기억버튼)함수 호출
+      return (
+        <div>
+          <MemorizeBtn text={value} onClick={changeValue} />
+          <MemorizeBtn text="Confirm" />
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
