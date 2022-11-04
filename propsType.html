@@ -11,8 +11,11 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <!-- JS -> JSX 코드변환기 Babel 설치 추가  -->
 
+  <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+  <!-- 1. PropsType 라이브러리 설치 -->
+
   <script type="text/babel">
-    function Btn({ text }) {
+    function Btn({ text, fontSize = 30 }) {
       console.log(text);
       return (
         <button
@@ -22,6 +25,7 @@
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
+            fontSize: fontSize,
           }}
         >
           {text}
@@ -29,10 +33,17 @@
       );
     }
 
+    // 2. prop의 타입을 지정 -> 체크 후 콘솔창에서 react가 해주는 경고 확인
+    Btn.propTypes = {
+      text: PropTypes.string.isRequired,
+      fontSize: PropTypes.number,
+    };
+
     function App() {
       return (
         <div>
-          <Btn text="Save" fontSize={16} />
+          <Btn text="Save" fontSize={18} />
+          <Btn text={"Continue"} />
         </div>
       );
     }
